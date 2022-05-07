@@ -19,6 +19,7 @@ import CreateYourOwnPizza from "../shared/components/CreatePizza/CreateYourOwnPi
 import { RequireAuth } from "../shared/components/RequireAuth/RequireAuth";
 import { RegisterBeverage } from "../components/RegisterBeverage/RegisterBeverage";
 import { RegisterDessert } from "../components/RegisterDesserts/RegisterDessert";
+import { RegisterPizza } from "../components/RegisterPizza/RegisterPizza";
 import AdminDeleteProd from "../pages/AdminDeleteProd/AdminDeleteProd";
 import AdminDeleteDessert from "../pages/AdminDeleteProd/AdminDeleteDessert";
 import AdminDeleteBeverage from "../pages/AdminDeleteProd/AdminDeleteBeverage";
@@ -111,6 +112,19 @@ const AppRoutes = ({ jwt }) => {
             <RequireAuth>
               {user !== null && user.role === "admin" ? (
                 <RegisterDessert />
+              ) : (
+                <Navigate to="/" />
+              )}
+            </RequireAuth>
+          }
+        />
+
+        <Route
+          path="/admin/post/pizzas"
+          element={
+            <RequireAuth>
+              {user !== null && user.role === "admin" ? (
+                <RegisterPizza />
               ) : (
                 <Navigate to="/" />
               )}

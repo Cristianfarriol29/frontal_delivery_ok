@@ -9,31 +9,35 @@ const ClientOrder = ({
   OrderId,
   status,
 }) => {
+  const initialColor =
+    status === "Accepted" ? null : status === "In Process" ? "yellow" : "green";
+
   //ok cambiado map con cantidad precio y ul por p
   return (
-    <div className="clientOrder">
-      <p>
-        Products:{" "}
+    <tr className="clientOrder">
+      <td>
         {items.map((i, index) => {
           return (
             <p key={index}>
-              {i.name} : amount {i.amount} * price {i.price} ={" "}
-              {i.amount * i.price} Euros
+              {i.name} : amount {i.amount} * price {i.price} =
+              {(i.amount * i.price).toFixed(2)} Euros
             </p>
           );
         })}
-      </p>
-      <p>Address:</p>
-      <p>Street: {address.street}</p>
-      <p>City:{address.city}</p>
-      <p>Country:{address.country}</p>
-      <p>Post Code:{address.postcode}</p>
-      <p>Order Date: {date}</p>
-      <p>TransactionId: {trasactionId}</p>
-      <p>OrderId: {OrderId}</p>
+      </td>
 
-      <p>Order Status: {status}</p>
-    </div>
+      <td>
+        <p>{address.street}</p>
+        <p>{address.city}</p>
+        <p>{address.country}</p>
+        <p>{address.postcode}</p>
+      </td>
+      <td>{date}</td>
+      <td>{trasactionId}</td>
+      <td>{OrderId}</td>
+
+      <td className={initialColor}>{status}</td>
+    </tr>
   );
 };
 

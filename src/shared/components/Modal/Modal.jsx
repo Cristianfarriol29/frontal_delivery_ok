@@ -95,8 +95,11 @@ const Modal = ({ closeModal, pizzaFiltrada }) => {
         </select>
 
         <div className="footer">
-          <button onClick={() => closeModal(false)}>Cancel</button>
+          <button className="btn" onClick={() => closeModal(false)}>
+            Cancel
+          </button>
           <button
+            className="btn"
             onClick={() =>
               (itemToBuy.cant > 0) & !isNaN(itemToBuy.price) ||
               !isNaN(itemToBuy.subtotal)
@@ -116,7 +119,7 @@ const Modal = ({ closeModal, pizzaFiltrada }) => {
                   })
             }
           >
-            Agregar Al Carrito
+            Agregar
           </button>
         </div>
       </div>

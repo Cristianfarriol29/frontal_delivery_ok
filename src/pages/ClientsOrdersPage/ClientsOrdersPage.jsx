@@ -28,7 +28,7 @@ const ClientsOrdersPage = () => {
 
         console.log(orders);
 
-        setUsersOrders(orders);
+        setUsersOrders(orders.reverse());
       })
       .catch((error) => {
         console.error(error);
@@ -37,21 +37,34 @@ const ClientsOrdersPage = () => {
 
   return (
     <div className="orderContainer">
-      <h1>Orders of {name.toUpperCase()}</h1>
+      <div className="order-box">
+        <h1>Orders of {name.toUpperCase()}</h1>
+      </div>
 
-      {usersOrders.map((item, index) => {
-        console.log(item);
-        return (
-          <ClientOrder
-            items={item.orderedProducts}
-            status={item.deliverStatus}
-            address={item.shippingAddress}
-            date={item.createdAt.substring(0, 10)}
-            trasactionId={item.transactionId}
-            OrderId={item._id}
-          />
-        );
-      })}
+      <table id="customers">
+        <tr>
+          <th className="client-order">Ordered Products</th>
+          <th className="client-order">{name}´s address</th>
+          <th className="client-order">Order Date</th>
+          <th className="client-order">Transaction Id</th>
+          <th className="client-order">Order Id</th>
+          <th className="client-order">Order Status</th>
+        </tr>
+
+        {usersOrders.map((item, index) => {
+          console.log(item);
+          return (
+            <ClientOrder
+              items={item.orderedProducts}
+              status={item.deliverStatus}
+              address={item.shippingAddress}
+              date={item.createdAt.substring(0, 10)}
+              trasactionId={item.transactionId}
+              OrderId={item._id}
+            />
+          );
+        })}
+      </table>
     </div>
   );
 };

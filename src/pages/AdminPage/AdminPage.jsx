@@ -29,7 +29,7 @@ const AdminPage = () => {
 
         console.log(orders);
 
-        setUsersOrders(orders);
+        setUsersOrders(orders.reverse());
       })
       .catch((error) => {
         console.error(error);

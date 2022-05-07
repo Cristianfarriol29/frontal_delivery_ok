@@ -4,19 +4,17 @@ import { API } from "../../shared/services/api";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-export const RegisterBeverage = () => {
+export const RegisterPizza = () => {
   let navigate = useNavigate();
-  const { register, handleSubmit } = useForm();
-
   let userToken = localStorage.getItem("token");
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append("img", data.img[0]);
     formData.append("price", Number(data.price));
     formData.append("name", data.name);
-    console.log(formData);
-    API.post(`/products/beverages/`, formData, {
+    API.post(`/products/pizzas/`, formData, {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
@@ -34,7 +32,7 @@ export const RegisterBeverage = () => {
           text: "Hubo un problema a la hora de crear el producto.",
         });
       }
-      navigate("/beverages");
+      navigate("/");
     });
   };
 

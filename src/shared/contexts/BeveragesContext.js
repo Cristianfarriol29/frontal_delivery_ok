@@ -9,6 +9,8 @@ export const useBeveragesContext = () => {
 
 export default function BeveragesProvider({ children }) {
   const [beverages, setBeverages] = useState([]);
+  const [beveragesSearch, setBeveragesSearch] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     axios
@@ -16,9 +18,25 @@ export default function BeveragesProvider({ children }) {
       .then((result) => setBeverages(result.data));
   }, []);
 
+  useEffect(() => {
+    if (search.length > 2) {
+      setBeveragesSearch(
+        beverages.filter((p) =>
+          p.name.toLowerCase().includes(search.toLowerCase())
+        )
+      );
+    } else if (search.length < 2) {
+      setBeveragesSearch([]);
+    }
+  }, [search]);
+
   const store = {
     beverages,
     setBeverages,
+    search,
+    setSearch,
+    beveragesSearch,
+    setBeveragesSearch,
   };
 
   return (

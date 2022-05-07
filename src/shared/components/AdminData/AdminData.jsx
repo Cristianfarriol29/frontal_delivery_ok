@@ -19,6 +19,11 @@ const AdminData = ({
   const [orderStatus, setOrderStatus] = useState(status);
   const [postData, setPostData] = useState({});
 
+  const initialState =
+    status === "Accepted" ? null : status === "In Process" ? "yellow" : "green";
+
+  const [color, setColor] = useState(initialState);
+
   console.log(status);
 
   let differentStatus = ["Accepted", "In Process", "Delivered"];
@@ -41,6 +46,16 @@ const AdminData = ({
       console.log(err);
     }
     console.log("*****", data);
+  };
+
+  const changeColor = (estado) => {
+    if (estado === "Delivered") {
+      setColor("green");
+    } else if (estado === "In Process") {
+      setColor("yellow");
+    } else {
+      setColor(null);
+    }
   };
 
   // console.log(orderStatus)
@@ -94,7 +109,15 @@ const AdminData = ({
         </select>
       </td>
       <td>
-        <button onClick={() => postStatus(postData)}>Submit</button>
+        <button
+          onClick={() => {
+            postStatus(postData);
+            changeColor(orderStatus);
+          }}
+          className={color}
+        >
+          Submit
+        </button>
       </td>
     </tr>
   );
