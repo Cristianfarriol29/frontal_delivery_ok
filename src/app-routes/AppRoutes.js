@@ -23,6 +23,7 @@ import { RegisterPizza } from "../components/RegisterPizza/RegisterPizza";
 import AdminDeleteProd from "../pages/AdminDeleteProd/AdminDeleteProd";
 import AdminDeleteDessert from "../pages/AdminDeleteProd/AdminDeleteDessert";
 import AdminDeleteBeverage from "../pages/AdminDeleteProd/AdminDeleteBeverage";
+import { UserProfile } from "../pages/UserProfile/UserProfile";
 
 const AppRoutes = ({ jwt }) => {
   let user = JSON.parse(localStorage.getItem("user"));
@@ -154,6 +155,11 @@ const AppRoutes = ({ jwt }) => {
               <ClientsOrdersPage />
             </RequireAuth>
           }
+        />
+
+        <Route
+          path="/profile"
+          element={<RequireAuth>{jwt && <UserProfile />}</RequireAuth>}
         />
 
         <Route path="/createpizza" element={<CreateYourOwnPizza />} />
