@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import ModalBeverages from "../ModalBeverages/ModalBeverages";
 
 const Beverage = ({ beverages }) => {
   const [show, setShow] = useState(false);
   const [beverageFiltrada, setBeverageFiltrada] = useState([]);
   const [ID, setID] = useState("");
-
+  let user = JSON.parse(localStorage.getItem("user"));
   const filtrarBeverage = (id) => {
     setBeverageFiltrada(beverages.filter((p) => p._id === id));
   };
@@ -25,23 +26,37 @@ const Beverage = ({ beverages }) => {
               </p>
             </div>
 
-            <button
-              onClick={() => [
-                filtrarBeverage(beverage._id),
-                setShow(true),
-                setID(beverage._id),
-              ]}
-              className="btn"
-            >
-              Pedir
-            </button>
-
-            {show && ID === beverage._id && (
-              <ModalBeverages
-                beverageFiltrada={beverageFiltrada}
-                closeModal={setShow}
-              />
+            {user !== null && user.role !== "admin" ? (
+              <button
+                onClick={() => [
+                  filtrarBeverage(beverage._id),
+                  setShow(true),
+                  setID(beverage._id),
+                ]}
+                className="btn"
+              >
+                Pedir
+              </button>
+            ) : (
+              <Link to={`/admin/deleteproduct/beverage/${beverage._id}`}>
+                <button className="btn">EDITAR PRODUCTO</button>
+              </Link>
             )}
+
+            {show &&
+              ID === beverage._id &&
+              user !== null &&
+              user.role !== "admin" && (
+                <ModalBeverages
+                  beverageFiltrada={beverageFiltrada}
+                  closeModal={setShow}
+                />
+              )}
+
+            {show &&
+              ID === beverage._id &&
+              user !== null &&
+              user.role === "admin" && <button>Eliminar producto</button>}
           </div>
         );
       })}

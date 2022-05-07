@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import ModalBeverages from "../ModalBeverages/ModalBeverages";
 import ModalDessert from "../ModalDesserts/ModalDessert";
 
 const Dessert = ({ desserts }) => {
   const [show, setShow] = useState(false);
   const [dessertFiltrada, setDessertFiltrada] = useState([]);
+  let user = JSON.parse(localStorage.getItem("user"));
   const [ID, setID] = useState("");
 
   const filtrarBeverage = (id) => {
@@ -26,23 +28,37 @@ const Dessert = ({ desserts }) => {
               </p>
             </div>
 
-            <button
-              onClick={() => [
-                filtrarBeverage(dessert._id),
-                setShow(true),
-                setID(dessert._id),
-              ]}
-              className="btn"
-            >
-              Pedir
-            </button>
-
-            {show && ID === dessert._id && (
-              <ModalDessert
-                dessertFiltrada={dessertFiltrada}
-                closeModal={setShow}
-              />
+            {user !== null && user.role !== "admin" ? (
+              <button
+                onClick={() => [
+                  filtrarBeverage(dessert._id),
+                  setShow(true),
+                  setID(dessert._id),
+                ]}
+                className="btn"
+              >
+                Pedir
+              </button>
+            ) : (
+              <Link to={`/admin/deleteproduct/dessert/${dessert._id}`}>
+                <button className="btn">EDITAR PRODUCTO</button>
+              </Link>
             )}
+
+            {show &&
+              ID === dessert._id &&
+              user !== null &&
+              user.role !== "admin" && (
+                <ModalDessert
+                  dessertFiltrada={dessertFiltrada}
+                  closeModal={setShow}
+                />
+              )}
+
+            {show &&
+              ID === dessert._id &&
+              user !== null &&
+              user.role === "admin" && <button>BOTON DE ADMINISTRADOR</button>}
           </div>
         );
       })}

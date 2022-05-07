@@ -9,8 +9,11 @@ const CartPage = () => {
 
   //ElEMENTOS QUE PASAMOS A CHECKOUT
   let totalAPagar = cartItems.reduce((a, c) => a + c.subtotal, 0);
-  let products = cartItems.map((product) => product.name);
+  let products = cartItems.map((product) => {
+    return { name: product.name, amount: product.cant, price: product.price };
+  });
 
+  console.log(products);
   const confirmarProductoAEliminar = (producto) => {
     Swal.fire({
       title: "¿Estas seguro de eliminar este producto?",
@@ -46,28 +49,31 @@ const CartPage = () => {
                 width={550}
                 height={450}
               />
+              <div className="cart_items-buttons">
+                <button
+                  onClick={() =>
+                    productosDelCarrito.cant > 1
+                      ? restarItems(productosDelCarrito)
+                      : confirmarProductoAEliminar(productosDelCarrito)
+                  }
+                >
+                  -
+                </button>
+                <h2>{productosDelCarrito.cant}</h2>
+                <button onClick={() => sumarItems(productosDelCarrito)}>
+                  +
+                </button>
+              </div>
             </div>
             <div className="cart_items-info">
-              <p>Cantidad: {productosDelCarrito.cant}</p>
               <p>Precio: {productosDelCarrito.price}</p>
               <p>Subtotal: {parseInt(productosDelCarrito.subtotal)} €</p>
             </div>
             <button
+              className="cart_items-delete"
               onClick={() => confirmarProductoAEliminar(productosDelCarrito)}
             >
               Eliminar producto
-            </button>
-            <button
-              onClick={() =>
-                productosDelCarrito.cant > 1
-                  ? restarItems(productosDelCarrito)
-                  : confirmarProductoAEliminar(productosDelCarrito)
-              }
-            >
-              RESTAR
-            </button>
-            <button onClick={() => sumarItems(productosDelCarrito)}>
-              SUMAR
             </button>
           </div>
         );

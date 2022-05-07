@@ -2,11 +2,15 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { ButtonLogout } from "../../shared/components/ButtonLogOut/ButtonLogOut";
 import { useCartContext } from "../../shared/contexts/CartContext";
+import ProfileButton from "../ProfileButton/ProfileButton";
 import "./_Navbar.scss";
 
 const Navbar = ({ jwt }) => {
   const { cartItems } = useCartContext();
   const cant = cartItems.reduce((acc, prod) => acc + prod.cant, 0);
+
+  let user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <nav className="navbar">
       {jwt && (
@@ -29,7 +33,7 @@ const Navbar = ({ jwt }) => {
         </>
       )}
       <div className="navbar_links">
-        {jwt && (
+        {jwt && user !== null && user.role !== "admin" && (
           <NavLink to="/cart">
             <div className="navbar_links-cart">
               <img
@@ -44,7 +48,13 @@ const Navbar = ({ jwt }) => {
             </div>
           </NavLink>
         )}
-        {jwt && <ButtonLogout />}
+        {jwt && user !== null && user.role === "admin" && (
+          <NavLink to="/admin">
+            <button>Panel de administrador</button>
+          </NavLink>
+        )}
+
+        {jwt && <ProfileButton />}
       </div>
     </nav>
   );

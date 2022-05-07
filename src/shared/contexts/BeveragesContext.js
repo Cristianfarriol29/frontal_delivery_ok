@@ -14,7 +14,7 @@ export default function BeveragesProvider({ children }) {
     axios
       .get("http://localhost:8000/api/products/beverages")
       .then((result) => setBeverages(result.data));
-  }, [beverages]);
+  }, []);
 
   const store = {
     beverages,

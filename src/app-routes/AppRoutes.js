@@ -17,48 +17,86 @@ import { LoginPage } from "../pages/LoginPage/LoginPage";
 import { RegisterPage } from "../pages/RegisterPage/RegisterPage";
 import CreateYourOwnPizza from "../shared/components/CreatePizza/CreateYourOwnPizza";
 import { RequireAuth } from "../shared/components/RequireAuth/RequireAuth";
-import { useUserContext } from "../shared/contexts/UserContext";
 import { RegisterBeverage } from "../components/RegisterBeverage/RegisterBeverage";
 import { RegisterDessert } from "../components/RegisterDesserts/RegisterDessert";
+import AdminDeleteProd from "../pages/AdminDeleteProd/AdminDeleteProd";
+import AdminDeleteDessert from "../pages/AdminDeleteProd/AdminDeleteDessert";
+import AdminDeleteBeverage from "../pages/AdminDeleteProd/AdminDeleteBeverage";
 
 const AppRoutes = ({ jwt }) => {
-  const { userRole } = useUserContext();
-
-  console.log(typeof userRole);
+  let user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <Router>
       <Navbar jwt={jwt} />
-      <Header />
+
+      {jwt && <Header />}
       <Routes>
-        <Route
-          path="/"
-          element={
-            <RequireAuth>
-              <HomePage />
-            </RequireAuth>
-          }
-        />
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
-        {userRole === "admin" && (
-          <Route
-            exact
-            path="/admin"
-            element={
-              <RequireAuth>
+        <Route
+          exact
+          path="/admin"
+          element={
+            <RequireAuth>
+              {user !== null && user.role === "admin" ? (
                 <AdminPage />
-              </RequireAuth>
-            }
-          />
-        )}
+              ) : (
+                <Navigate to="/" />
+              )}
+            </RequireAuth>
+          }
+        />
+
+        <Route
+          exact
+          path="/admin/deleteproduct/pizza/:id"
+          element={
+            <RequireAuth>
+              {user !== null && user.role === "admin" ? (
+                <AdminDeleteProd />
+              ) : (
+                <Navigate to="/" />
+              )}
+            </RequireAuth>
+          }
+        />
+
+        <Route
+          exact
+          path="/admin/deleteproduct/dessert/:id"
+          element={
+            <RequireAuth>
+              {user !== null && user.role === "admin" ? (
+                <AdminDeleteDessert />
+              ) : (
+                <Navigate to="/" />
+              )}
+            </RequireAuth>
+          }
+        />
+
+        <Route
+          exact
+          path="/admin/deleteproduct/beverage/:id"
+          element={
+            <RequireAuth>
+              {user !== null && user.role === "admin" ? (
+                <AdminDeleteBeverage />
+              ) : (
+                <Navigate to="/" />
+              )}
+            </RequireAuth>
+          }
+        />
 
         <Route
           path="/admin/post/beverages"
           element={
             <RequireAuth>
-              {userRole === "basic" ? (
+              {user !== null && user.role === "admin" ? (
                 <RegisterBeverage />
               ) : (
                 <Navigate to="/" />
@@ -71,17 +109,26 @@ const AppRoutes = ({ jwt }) => {
           path="/admin/post/desserts"
           element={
             <RequireAuth>
-              {userRole === "basic" ? <RegisterDessert /> : <Navigate to="/" />}
+              {user !== null && user.role === "admin" ? (
+                <RegisterDessert />
+              ) : (
+                <Navigate to="/" />
+              )}
             </RequireAuth>
           }
         />
 
         <Route path="/beverages" element={<BeveragesPage />} />
+
         <Route
           path="/cart"
           element={
             <RequireAuth>
-              <CartPage />
+              {user !== null && jwt && user.role !== "admin" ? (
+                <CartPage />
+              ) : (
+                <Navigate to="/" />
+              )}
             </RequireAuth>
           }
         />

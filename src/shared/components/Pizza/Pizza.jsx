@@ -8,6 +8,8 @@ const Pizza = ({ pizzas }) => {
   const [pizzaFiltrada, setPizzaFiltrada] = useState([]);
   const [ID, setID] = useState("");
 
+  let user = JSON.parse(localStorage.getItem("user"));
+
   const filtrarPizza = (id) => {
     setPizzaFiltrada(pizzas.filter((p) => p._id === id));
   };
@@ -28,21 +30,35 @@ const Pizza = ({ pizzas }) => {
             </div>
 
             {/* <Link to={`/pizza/${pizza._id}`}> */}
-            <button
-              onClick={() => [
-                filtrarPizza(pizza._id),
-                setShow(true),
-                setID(pizza._id),
-              ]}
-              className="btn"
-            >
-              Pedir
-            </button>
+            {user !== null && user.role !== "admin" ? (
+              <button
+                onClick={() => [
+                  filtrarPizza(pizza._id),
+                  setShow(true),
+                  setID(pizza._id),
+                ]}
+                className="btn"
+              >
+                Pedir
+              </button>
+            ) : (
+              <Link to={`/admin/deleteproduct/pizza/${pizza._id}`}>
+                <button className="btn">EDITAR PRODUCTO</button>
+              </Link>
+            )}
             {/* </Link> */}
 
-            {show && ID === pizza._id && (
-              <Modal pizzaFiltrada={pizzaFiltrada} closeModal={setShow} />
-            )}
+            {show &&
+              ID === pizza._id &&
+              user !== null &&
+              user.role !== "admin" && (
+                <Modal pizzaFiltrada={pizzaFiltrada} closeModal={setShow} />
+              )}
+
+            {show &&
+              ID === pizza._id &&
+              user !== null &&
+              user.role === "admin" && <button>BOTON DE ADMINISTRADOR</button>}
           </div>
         );
       })}

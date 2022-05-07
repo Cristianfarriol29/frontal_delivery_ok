@@ -1,6 +1,7 @@
 import AdminData from "../../shared/components/AdminData/AdminData";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./_AdminPage.scss";
 
 //hacer fetch o get con axios de los datos de orders y mapear el componente admindata
 //ahora mismo estoy simulando
@@ -36,24 +37,39 @@ const AdminPage = () => {
   }, [userToken]);
 
   return (
-    <div>
-      <h1>USERS ORDERS</h1>
-      {usersOrders.map((order, index) => {
-        console.log(order);
+    <div className="body">
+      <div className="title-box">
+        <h1>USERS ORDERS</h1>
+      </div>
 
-        return (
-          <AdminData
-            key={index}
-            items={order.orderedProducts}
-            date={order.createdAt.substring(0, 10)}
-            orderId={order._id}
-            userId={order.userId}
-            email={order.email}
-            price={order.totalPrice}
-            status={order.deliverStatus}
-          />
-        );
-      })}
+      <table id="customers">
+        <tr>
+          <th>Order Date</th>
+          <th>Order Id</th>
+          <th>User Id</th>
+          <th>User Email</th>
+          <th>Ordered Products</th>
+          <th>Total Price</th>
+          <th>Order Status</th>
+          <th>Submit Order</th>
+        </tr>
+        {usersOrders.map((order, index) => {
+          console.log(order);
+
+          return (
+            <AdminData
+              key={index}
+              items={order.orderedProducts}
+              date={order.createdAt.substring(0, 10)}
+              orderId={order._id}
+              userId={order.userId}
+              email={order.email}
+              price={order.totalPrice}
+              status={order.deliverStatus}
+            />
+          );
+        })}
+      </table>
     </div>
   );
 };
