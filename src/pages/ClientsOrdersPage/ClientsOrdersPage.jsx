@@ -43,16 +43,27 @@ const ClientsOrdersPage = () => {
 
       <table id="customers">
         <tr>
-          <th className="client-order">Ordered Products</th>
-          <th className="client-order">{name}´s address</th>
-          <th className="client-order">Order Date</th>
-          <th className="client-order">Transaction Id</th>
-          <th className="client-order">Order Id</th>
-          <th className="client-order">Order Status</th>
+          <th className="client-order">
+            <h1>Ordered Products</h1>
+          </th>
+          <th className="client-order">
+            <h1>{name.toUpperCase()}´s address</h1>
+          </th>
+          <th className="client-order">
+            <h1>Order Date</h1>
+          </th>
+          <th className="client-order">
+            <h1>Transaction Id</h1>
+          </th>
+          <th className="client-order">
+            <h1>Order Id</h1>
+          </th>
+          <th className="client-order">
+            <h1>Order Status</h1>
+          </th>
         </tr>
 
         {usersOrders.map((item, index) => {
-          console.log(item);
           return (
             <ClientOrder
               items={item.orderedProducts}

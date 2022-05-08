@@ -55,10 +55,18 @@ const AdminData = ({
 
   return (
     <tr className="adminData">
-      <td>{date}</td>
-      <td>{orderId}</td>
-      <td>{userId}</td>
-      <td>{email}</td>
+      <td>
+        <h2>{date}</h2>
+      </td>
+      <td>
+        <h2>{orderId}</h2>
+      </td>
+      <td>
+        <h2>{userId}</h2>
+      </td>
+      <td>
+        <h2>{email}</h2>
+      </td>
 
       <td>
         {items.map((i, index) => {

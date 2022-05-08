@@ -18,25 +18,38 @@ const ClientOrder = ({
       <td>
         {items.map((i, index) => {
           return (
-            <p key={index}>
-              {i.name} : amount {i.amount} * price {i.price} =
-              {(i.amount * i.price).toFixed(2)} Euros
-            </p>
+            <div>
+              <h2 className="bg-dark text-white" key={index}>
+                Product name: {i.name}
+              </h2>
+
+              <h2>
+                <i>Product price: {(i.amount * i.price).toFixed(2)} Euros</i>
+              </h2>
+            </div>
           );
         })}
       </td>
 
       <td>
-        <p>{address.street}</p>
-        <p>{address.city}</p>
-        <p>{address.country}</p>
-        <p>{address.postcode}</p>
+        <h2>{address.street.toUpperCase()}</h2>
+        <h2>{address.city.toUpperCase()}</h2>
+        <h2>{address.country.toUpperCase()}</h2>
+        <h2>{address.postcode}</h2>
       </td>
-      <td>{date}</td>
-      <td>{trasactionId}</td>
-      <td>{OrderId}</td>
+      <td>
+        <h2>{date}</h2>
+      </td>
+      <td>
+        <h2>{trasactionId}</h2>
+      </td>
+      <td>
+        <h2>{OrderId}</h2>
+      </td>
 
-      <td className={initialColor}>{status}</td>
+      <td className={`${initialColor} text-center`}>
+        <h2>{status}</h2>
+      </td>
     </tr>
   );
 };
