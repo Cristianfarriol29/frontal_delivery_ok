@@ -19,6 +19,11 @@
     box-shadow: 0 0 2px 0 rgb(0 0 0 / 12%), 0 2px 2px 0 rgb(0 0 0 / 24%);
     padding: 2rem;
 
+    &-image img {
+        width:550px;
+        height: 450px;
+    }
+
     &-delete{
         cursor: pointer;
         background-color: #E2001A;
@@ -40,9 +45,9 @@
     &-buttons {
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        gap: 2rem;
         align-items: center;
-        padding: 2rem;
+        padding: 1rem;
         button{
             cursor: pointer;
             background-color: #E2001A;
@@ -66,4 +71,6 @@
         gap: 2rem;
         font-size: 2rem;
     }
+
+    
 }

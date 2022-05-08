@@ -13,7 +13,7 @@ export default function UserProvider({ children }) {
   console.log(user);
   useEffect(() => {
     user !== null ? setUserRole(user.role) : setUserRole("basic");
-  }, []);
+  }, [user]);
 
   const store = {
     userRole,

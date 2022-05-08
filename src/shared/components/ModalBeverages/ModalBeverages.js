@@ -86,7 +86,7 @@ const ModalBeverages = ({ closeModal, beverageFiltrada }) => {
                   })
             }
           >
-            Agregar Al Carrito
+            AGREGAR
           </button>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { API } from "../../shared/services/api";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { JwtContext } from "../../shared/contexts/JwtContext";
 import "./_LoginForm.scss";
 
@@ -57,15 +57,8 @@ export const LoginForm = () => {
                 id="exampleInputPassword1"
               />
             </div>
-            <div className="form-group form-check">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id="exampleCheck1"
-              />
-              <label className="form-check-label" htmlFor="exampleCheck1">
-                Check me out
-              </label>
+            <div className="form-group">
+              Aun no estas registrado? <Link to="/register">Registrate!</Link>
             </div>
             <button className="btn btn-primary btn-block">Login</button>
           </form>

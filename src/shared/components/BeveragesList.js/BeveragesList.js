@@ -1,25 +1,21 @@
 import React from "react";
 import { useBeveragesContext } from "../../contexts/BeveragesContext";
+import { useUserContext } from "../../contexts/UserContext";
 import Beverage from "../Beverage/Beverage";
 
 const BeveragesList = () => {
   const { beverages, beveragesSearch, search, setSearch } =
     useBeveragesContext();
-  let user = JSON.parse(localStorage.getItem("user"));
+  const { userRole } = useUserContext();
 
   return (
     <>
       <div className="inputSearch">
-        {(user !== null) & (user.role === "admin") ? (
-          <h2>Busca el producto que deseas eliminar!</h2>
-        ) : (
-          <h2>Busca tu bebida favorita!</h2>
-        )}
         <input
           placeholder={
-            (user !== null) & (user.role === "admin")
-              ? "Busca el producto que deseas eliminar..."
-              : "Busca tu bebida favorita..."
+            userRole === "basic"
+              ? "Busca tu bebida favorita..."
+              : "Busca el producto que deseas eliminar"
           }
           type="text"
           value={search}

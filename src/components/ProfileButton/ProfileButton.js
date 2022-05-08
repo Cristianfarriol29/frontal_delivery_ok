@@ -3,20 +3,30 @@ import { useContext } from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { ButtonLogout } from "../../shared/components/ButtonLogOut/ButtonLogOut";
 import { useCartContext } from "../../shared/contexts/CartContext";
 import { useNavigate } from "react-router-dom";
 import { JwtContext } from "../../shared/contexts/JwtContext";
 
 export default function ProfileButton() {
+  let user = JSON.parse(localStorage.getItem("user"));
+  console.log(user);
+
+  function handleClose(action) {
+    if (action === "perfil") {
+      navigate("profile");
+      setAnchorEl(null);
+    } else if (action === "pedidos") {
+      navigate("orders");
+      setAnchorEl(null);
+    } else if (action === "cerrar") {
+      setAnchorEl(null);
+    }
+  }
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-    navigate("/orders");
   };
 
   let navigate = useNavigate();
@@ -41,7 +51,7 @@ export default function ProfileButton() {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        Dashboard
+        <img src={user.img} alt="userImage" width="50px" height="50px" />
       </Button>
       <Menu
         id="demo-positioned-menu"
@@ -58,9 +68,10 @@ export default function ProfileButton() {
           horizontal: "left",
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>Mis Pedidos</MenuItem>
+        <MenuItem onClick={() => handleClose("perfil")}>Profile</MenuItem>
+        <MenuItem onClick={() => handleClose("pedidos")}>Mis Pedidos</MenuItem>
         <MenuItem onClick={logOut}>LogOut</MenuItem>
+        <MenuItem onClick={() => handleClose("cerrar")}>Cerrar x</MenuItem>
       </Menu>
     </div>
   );

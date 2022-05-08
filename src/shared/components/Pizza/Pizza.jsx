@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useUserContext } from "../../contexts/UserContext";
 import Modal from "../Modal/Modal";
 import "./_Pizza.scss";
 
@@ -7,8 +8,7 @@ const Pizza = ({ pizzas }) => {
   const [show, setShow] = useState(false);
   const [pizzaFiltrada, setPizzaFiltrada] = useState([]);
   const [ID, setID] = useState("");
-
-  let user = JSON.parse(localStorage.getItem("user"));
+  const { userRole } = useUserContext();
 
   const filtrarPizza = (id) => {
     setPizzaFiltrada(pizzas.filter((p) => p._id === id));
@@ -29,8 +29,7 @@ const Pizza = ({ pizzas }) => {
               </p>
             </div>
 
-            {/* <Link to={`/pizza/${pizza._id}`}> */}
-            {user !== null && user.role !== "admin" ? (
+            {userRole === "basic" && (
               <button
                 onClick={() => [
                   filtrarPizza(pizza._id),
@@ -41,24 +40,17 @@ const Pizza = ({ pizzas }) => {
               >
                 Pedir
               </button>
-            ) : (
+            )}
+
+            {userRole === "admin" && (
               <Link to={`/admin/deleteproduct/pizza/${pizza._id}`}>
                 <button className="btn">EDITAR PRODUCTO</button>
               </Link>
             )}
-            {/* </Link> */}
 
-            {show &&
-              ID === pizza._id &&
-              user !== null &&
-              user.role !== "admin" && (
-                <Modal pizzaFiltrada={pizzaFiltrada} closeModal={setShow} />
-              )}
-
-            {show &&
-              ID === pizza._id &&
-              user !== null &&
-              user.role === "admin" && <button>BOTON DE ADMINISTRADOR</button>}
+            {show && (ID === pizza._id) & (userRole !== "admin") && (
+              <Modal pizzaFiltrada={pizzaFiltrada} closeModal={setShow} />
+            )}
           </div>
         );
       })}

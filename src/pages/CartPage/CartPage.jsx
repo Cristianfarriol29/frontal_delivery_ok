@@ -42,13 +42,8 @@ const CartPage = () => {
         return (
           <div className="cart_items">
             <div className="cart_items-image">
-              <h1>{productosDelCarrito.name}</h1>
-              <img
-                src={productosDelCarrito.img}
-                alt=""
-                width={550}
-                height={450}
-              />
+              <h1>{productosDelCarrito.name.substr(0, 30)}</h1>
+              <img src={productosDelCarrito.img} alt="" />
               <div className="cart_items-buttons">
                 <button
                   onClick={() =>

@@ -4,8 +4,11 @@
     text-align: center;
     input {
         height: 3rem;
-        width: 450px;
-        max-width: 650px;
+        width: 650px;
+        @media (max-width: 768px ){
+            width: 250px;
+        }
+
     }
     
 }

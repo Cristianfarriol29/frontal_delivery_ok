@@ -24,8 +24,6 @@ const AdminData = ({
 
   const [color, setColor] = useState(initialState);
 
-  console.log(status);
-
   let differentStatus = ["Accepted", "In Process", "Delivered"];
 
   const postStatus = async (data) => {
@@ -37,15 +35,12 @@ const AdminData = ({
         Id,
       });
 
-      console.log("+++++", response.status);
-
       if (response.status === 201) {
         Swal.fire("Ok Updated State");
       }
     } catch (err) {
       console.log(err);
     }
-    console.log("*****", data);
   };
 
   const changeColor = (estado) => {
@@ -57,8 +52,6 @@ const AdminData = ({
       setColor(null);
     }
   };
-
-  // console.log(orderStatus)
 
   return (
     <tr className="adminData">
@@ -85,8 +78,6 @@ const AdminData = ({
           value={orderStatus}
           onChange={(e) => {
             setOrderStatus(e.target.value);
-
-            console.log(e.target.value);
 
             setPostData({
               ...postData,

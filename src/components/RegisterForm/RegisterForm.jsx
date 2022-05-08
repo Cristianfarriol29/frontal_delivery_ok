@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { API } from "../../shared/services/api";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./_RegisterForm.scss";
 
 export const RegisterForm = () => {
@@ -62,15 +62,8 @@ export const RegisterForm = () => {
                 id="exampleInputPassword1"
               />
             </div>
-            <div className="form-group form-check">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id="exampleCheck1"
-              />
-              <label className="form-check-label" htmlFor="exampleCheck1">
-                Check me out
-              </label>
+            <div className="form-group">
+              Ya estas registrado? <Link to="/login">Logeate!</Link>
             </div>
             <button className="btn btn-primary btn-block">Register</button>
           </form>

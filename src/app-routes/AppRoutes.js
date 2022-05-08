@@ -32,7 +32,7 @@ const AppRoutes = ({ jwt }) => {
     <Router>
       <Navbar jwt={jwt} />
 
-      {jwt && <Header />}
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />

@@ -27,7 +27,7 @@ const ModalDessert = ({ closeModal, dessertFiltrada }) => {
         </div>
 
         <div className="title">
-          <h1>{dessert.name}</h1>
+          <h3>{dessert.name}</h3>
           <img src={dessert.img} width={100} height={100} />
         </div>
         <div className="image">
@@ -86,7 +86,7 @@ const ModalDessert = ({ closeModal, dessertFiltrada }) => {
                   })
             }
           >
-            Agregar Al Carrito
+            AGREGAR
           </button>
         </div>
       </div>

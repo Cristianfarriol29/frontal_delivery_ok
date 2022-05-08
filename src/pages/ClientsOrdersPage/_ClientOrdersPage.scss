@@ -34,10 +34,7 @@
       color: white;
     }
   
-  body {
-    padding: 2em;
-    }
-  
+ 
   
     table.table { width: 100%; }
   
@@ -68,5 +65,5 @@
       display: flex;
       justify-content: center;
       flex-direction: column;
-     
+      padding: 2em;
   }

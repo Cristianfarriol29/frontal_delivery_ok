@@ -74,7 +74,7 @@ export const UserProfile = () => {
           "Correcto",
           "El cambio se realizo correctamente en la base de datos.",
           "success"
-        );
+        ).then((result) => console.log("entra"));
       } else {
         Swal.fire({
           icon: "error",
@@ -82,7 +82,6 @@ export const UserProfile = () => {
           text: "Hubo un problema a la hora de la subida de archivo.",
         });
       }
-      navigate("/profile");
     });
   };
 

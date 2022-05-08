@@ -27,8 +27,6 @@ const AdminPage = () => {
       .then((response) => {
         let orders = response.data;
 
-        console.log(orders);
-
         setUsersOrders(orders.reverse());
       })
       .catch((error) => {
